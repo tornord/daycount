@@ -1,0 +1,25 @@
+{
+  "name": "daycount",
+  "version": "1.0.0",
+  "description": "Additional prototype functions to Date object and swedish banking day count functions",
+  "main": "daycount.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tornord/daycount.git"
+  },
+  "keywords": [
+    "date",
+    "swedish",
+    "banking",
+    "days"
+  ],
+  "author": "tornord",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tornord/daycount/issues"
+  },
+  "homepage": "https://github.com/tornord/daycount#readme"
+}
