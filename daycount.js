@@ -1,5 +1,8 @@
 ﻿var DayCount = (function () {
     'use strict';
+	
+    var msPerHour = 60 * 60 * 1000;
+    var msPerDay = 24 * msPerHour;
 
     Date.prototype.ymdhms = function () {
         var d = this.clone();
@@ -19,7 +22,7 @@
 
     Date.prototype.addHours = function (h) {
         var t = this.getTime();
-        return new Date(t + (60 * 60 * 1000) * h);
+        return new Date(t + msPerHour * h);
     };
 
     Date.prototype.totalHours = function () {
@@ -71,8 +74,7 @@
 
     Date.prototype.dayOfYear = function () {
         let start = new Date(Date.UTC(this.getFullYear(), 0, 0));
-        let oneDay = 1000 * 60 * 60 * 24;
-        return Math.floor((this - start) / oneDay);
+        return Math.floor((this - start) / msPerDay);
     };
 
     Date.prototype.monthNumber = function () {
@@ -92,6 +94,35 @@
     Date.prototype.toUnixTime = function () {
         return Math.floor(this.getTime() / 1000);
     }
+	
+	// Monday starting week day
+	Date.prototype.weekDay = function () {
+		return (this.getDay() + 6) % 7;
+	}
+
+	Date.daysBetween = function (d1, d2) {
+		return (d2 - d1) / msPerDay;
+	}
+
+	// Month 1-12 !
+	Date.fromYmd = function (y, m, d) {
+		return new Date(Date.UTC(y, m-1, d, 0, 0, 0));
+	}
+
+	// Swedish week number
+	Date.prototype.weekNumber = function () {
+		var y = this.getFullYear();
+		var firstJan = Date.fromYmd(y, 1, 1);
+		var d0 = firstJan.weekDay();
+		var w = Math.floor((Date.daysBetween(firstJan, this) + d0) / 7);
+		if (d0 < 4)	
+			return w + 1;
+		if (w >= 1) 
+			return w;
+		firstJan = Date.fromYmd(y - 1, 1, 1);
+		d0 = firstJan.weekDay();
+		return Math.floor((Date.daysBetween(firstJan, this) + d0) / 7) + ((d0 >= 4) ? 0 : 1);
+	}
 
     var firstEasterYear = 1990;
     var lastEasterYear = 2040;
@@ -161,7 +192,6 @@
             return d;
         return d.previousBusinessDay();
     };
-
 }());
 
 module.exports = DayCount;
