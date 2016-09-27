@@ -16,7 +16,7 @@
     "banking",
     "days"
   ],
-  "author": "tornord",
+  "author": "tornord <tornord@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tornord/daycount/issues"
