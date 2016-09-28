@@ -194,4 +194,6 @@
     };
 }());
 
+if (typeof module === 'undefined')
+    module = {};
 module.exports = DayCount;
