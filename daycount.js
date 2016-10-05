@@ -3,6 +3,7 @@
 	
     var msPerHour = 60 * 60 * 1000;
     var msPerDay = 24 * msPerHour;
+	var months = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 
     Date.prototype.ymdhms = function () {
         var d = this.clone();
@@ -14,6 +15,10 @@
 
     Date.prototype.ymd = function () {
         return this.ymdhms().substring(0, 10)
+    };
+
+    Date.prototype.mmmyy = function () {
+        return months[this.getMonth()] + " " + (this.getFullYear() % 100).toFixed(0);
     };
 
     Date.prototype.ymdhm = function () {
@@ -193,5 +198,9 @@
         return d.previousBusinessDay();
     };
 }());
+
+DayCount.printMsg = function () {
+    console.log();
+}
 
 module.exports = DayCount;

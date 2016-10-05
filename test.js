@@ -75,6 +75,6 @@ function testWeekNumber() {
 	}
 }
 
-// test1();
-// test2();
-// testWeekNumber();
+test1();
+test2();
+testWeekNumber();
