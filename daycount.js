@@ -199,13 +199,10 @@
     };
 }());
 
-<<<<<<< HEAD
 DayCount.printMsg = function () {
     console.log();
 }
-
-=======
 if (typeof module === 'undefined')
     module = {};
->>>>>>> 8a0d89612a4a4fd82681d2cc3e94f52c3994fc41
+
 module.exports = DayCount;
