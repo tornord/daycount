@@ -21,6 +21,10 @@
         return months[this.getMonth()] + " " + (this.getFullYear() % 100).toFixed(0);
     };
 
+    Date.prototype.mmmyyyy = function () {
+        return months[this.getMonth()] + " " + this.getFullYear().toFixed(0);
+    };
+
     Date.prototype.ymdhm = function () {
         return this.ymdhms().substring(0, 16);
     };
@@ -199,9 +203,12 @@
     };
 }());
 
-DayCount.printMsg = function () {
-    console.log();
+if (typeof DayCount !== 'undefined') {
+	DayCount.printMsg = function () {
+		console.log();
+	}
 }
+
 if (typeof module === 'undefined')
     module = {};
 
