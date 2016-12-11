@@ -37,7 +37,9 @@
     };
 
     Date.prototype.date = function () {
-        return new Date(this.setHours(0, 0, 0, 0));
+        var d = this.clone();
+        d.setHours(0, 0, 0, 0);
+        return d;
     }
 
     Date.prototype.clone = function () {
@@ -45,7 +47,7 @@
     }
 
     Date.prototype.addDays = function (days) {
-        return new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + days, 0, 0, 0))
+        return (new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + days, 0, 0, 0))).date();
         //var res = this.clone();
         //res.setDate(res.getDate() + days);
         //return res;
@@ -105,8 +107,10 @@
 	}
 
 	// Month 1-12 !
-	Date.fromYmd = function (y, m, d) {
-		return new Date(Date.UTC(y, m-1, d, 0, 0, 0));
+    Date.fromYmd = function (y, m, d) {
+        var d = new Date(Date.UTC(y, m - 1, d, 0, 0, 0));
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+		return d;
 	}
 
 	// Swedish week number
@@ -162,7 +166,7 @@
                 return false;
         }
         return true;
-    };
+    }
 
     Date.prototype.nextBusinessDay = function () {
         let d = this;
@@ -171,7 +175,13 @@
             if (d.isBusinessDay())
                 return d;
         }
-    };
+    }
+
+    Date.prototype.adjustNextBusinessDay = function () {
+        let d = this;
+        if (!d.isBusinessDay())
+            d = d.nextBusinessDay();
+    }
 
     Date.prototype.previousBusinessDay = function () {
         let d = this;
@@ -180,18 +190,24 @@
             if (d.isBusinessDay())
                 return d;
         }
-    };
+    }
+
+    Date.prototype.adjustPreviousBusinessDay = function () {
+        let d = this;
+        if (!d.isBusinessDay())
+            d = d.previousBusinessDay();
+    }
 
     Date.prototype.isLastBusinessDayOfMonth = function () {
         return (this.getMonth() != this.nextBusinessDay().getMonth());
-    };
+    }
 
     Date.prototype.lastBusinessDayOfMonth = function () {
         let d = this.lastDayOfMonth();
         if (d.isBusinessDay())
             return d;
         return d.previousBusinessDay();
-    };
+    }
 }());
 
 if (typeof module === 'undefined')
