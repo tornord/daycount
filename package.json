@@ -1,6 +1,6 @@
 {
   "name": "daycount",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Additional prototype functions to Date object and swedish banking day count functions",
   "main": "daycount.js",
   "scripts": {
