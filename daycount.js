@@ -83,6 +83,10 @@
         return res;
     };
 
+    Date.prototype.addYears = function (value) {
+        return this.addMonths(12 * value);
+    };
+
     Date.prototype.dayOfYear = function () {
         let start = new Date(Date.UTC(this.getFullYear(), 0, 0));
         return Math.floor((this - start) / msPerDay);
@@ -144,7 +148,16 @@
         "2007-04-08", "2008-03-23", "2009-04-12", "2010-04-04", "2011-04-24", "2012-04-08", "2013-03-31", "2014-04-20", "2015-04-05", "2016-03-27",
         "2017-04-16", "2018-04-01", "2019-04-21", "2020-04-12", "2021-04-04", "2022-04-17", "2023-04-09", "2024-03-31", "2025-04-20", "2026-04-05",
         "2027-03-28", "2028-04-16", "2029-04-01", "2030-04-21", "2031-04-13", "2032-03-28", "2033-04-17", "2034-04-09", "2035-03-25", "2036-04-13",
-        "2037-04-05", "2038-04-25", "2039-04-10", "2040-04-01"].map(d=>(new Date(d)).dayOfYear());
+        "2037-04-05", "2038-04-25", "2039-04-10", "2040-04-01"].map(d => (new Date(d)).dayOfYear());
+
+    function easterDay(y) {
+        var d = (19 * (y % 19) + 24) % 30;
+        var e = (2 * (y % 4) + 4 * (y % 7) + 6 * d + 5) % 7;
+        var f = d + e;
+        var month = ((f + 22) <= 31) ? 3 : 4;
+        var day = f + ((month == 3) ? 22 : -9) + (((f - 9) == 26) ? -7 : 0) + (((d == 28) && (e == 6)) ? -7 : 0);
+        return Date.fromYmd(y, month, day).dayOfYear();
+    }
 
     Date.prototype.isBusinessDay = function () {
         let w = this.getDay();
@@ -169,11 +182,11 @@
             if (d == (25 - ((w + 1) % 7)))
                 return false; // midsommar
         }
-        if ((y >= firstEasterYear) && (y <= lastEasterYear)) {
-            let e = this.dayOfYear() - easterDays[y - firstEasterYear];
-            if ((e == -2) || (e == 1) || (e == 39)) // långfredag, annandag påsk och kristi himmelsfärd
-                return false;
-        }
+        //if ((y >= firstEasterYear) && (y <= lastEasterYear)) {
+        let e = this.dayOfYear() - easterDay(y); // easterDays[y - firstEasterYear];
+        if ((e == -2) || (e == 1) || (e == 39)) // långfredag, annandag påsk och kristi himmelsfärd
+            return false;
+        //}
         return true;
     }
 
