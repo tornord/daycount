@@ -78,3 +78,7 @@ function testWeekNumber() {
 test1();
 test2();
 testWeekNumber();
+
+var d = new Date();
+console.log(["hms","ymd","ymdhm","ymdhms","mmmyy","mmmyyyy"].map(g=>d[g]()));
+

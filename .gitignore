@@ -6,3 +6,5 @@
 /.vs/config/applicationhost.config
 /daycount.sln
 /typings
+/bin
+/obj

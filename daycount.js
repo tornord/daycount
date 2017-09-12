@@ -5,16 +5,27 @@
     var msPerDay = 24 * msPerHour;
 	var months = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 
-    Date.prototype.ymdhms = function () {
-        var d = this.clone();
+    function toLocalString(d) {
+        d = d.clone();
         d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
         var s = d.toISOString();
-        s = s.replace(/T/, " ").substring(0, 19);
-        return s;
+        return s.replace(/T/, " ");
+    }
+
+    Date.prototype.hms = function () {  
+        return toLocalString(this).substring(11, 19);
     };
 
     Date.prototype.ymd = function () {
-        return this.ymdhms().substring(0, 10)
+        return toLocalString(this).substring(0, 10)
+    };
+
+    Date.prototype.ymdhm = function () {
+        return toLocalString(this).substring(0, 16);
+    };
+
+    Date.prototype.ymdhms = function () {
+        return toLocalString(this).substring(0, 19);
     };
 
     Date.prototype.mmmyy = function () {
@@ -23,10 +34,6 @@
 
     Date.prototype.mmmyyyy = function () {
         return months[this.getMonth()] + " " + this.getFullYear().toFixed(0);
-    };
-
-    Date.prototype.ymdhm = function () {
-        return this.ymdhms().substring(0, 16);
     };
 
     Date.prototype.addHours = function (h) {

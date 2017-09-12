@@ -2,9 +2,12 @@
     fromYmd(y: number, m: number, d: number): Date;
 }
 interface Date {
-    ymdhms(): string;
-    ymdhm(): string;
+    hms(): string;
     ymd(): string;
+    ymdhm(): string;
+    ymdhms(): string;
+    mmmyy(): string;
+    mmmyyyy(): string;
     addHours(h: number): Date;
     addDays(d: number): Date;
     totalHours(): number;
