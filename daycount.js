@@ -28,6 +28,10 @@
         return toLocalString(this).substring(0, 19);
     };
 
+    Date.prototype.yymmdd = function () {
+        return this.ymd.substring(2);
+    };
+
     Date.prototype.mmmyy = function () {
         return months[this.getMonth()] + " " + (this.getFullYear() % 100).toFixed(0);
     };
