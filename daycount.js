@@ -29,9 +29,10 @@
     };
 
     Date.prototype.yymmdd = function () {
-        return this.ymd.substring(2);
+        var s = this.ymd();
+        return s.substring(2,2)+s.substring(5,2)+s.substring(8,2);
     };
-
+	 
     Date.prototype.mmmyy = function () {
         return months[this.getMonth()] + " " + (this.getFullYear() % 100).toFixed(0);
     };
