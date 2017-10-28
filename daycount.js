@@ -30,7 +30,7 @@
 
     Date.prototype.yymmdd = function () {
         var s = this.ymd();
-        return s.substring(2,2)+s.substring(5,2)+s.substring(8,2);
+        return s.substring(2, 4) + s.substring(5, 7) + s.substring(8, 10);
     };
 	 
     Date.prototype.mmmyy = function () {
