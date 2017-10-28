@@ -6,6 +6,7 @@ interface Date {
     ymd(): string;
     ymdhm(): string;
     ymdhms(): string;
+    yymmdd(): string;
     mmmyy(): string;
     mmmyyyy(): string;
     addHours(h: number): Date;
